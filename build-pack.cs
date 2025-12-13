@@ -16,7 +16,7 @@ await using var fileWriter = File.Create(zipFileName);
 await using ZipArchive zipArchive = new(fileWriter, ZipArchiveMode.Create);
 
 foreach (var file in Directory.GetFiles(Environment.CurrentDirectory, "*.*", SearchOption.AllDirectories)
-	.Where(f => Regex.IsMatch(Path.GetFileName(f), @"^([\w\.\- ]+\.(?:png|mcmeta)|license\.txt)$", RegexOptions.IgnoreCase)))
+	.Where(f => Regex.IsMatch(Path.GetFileName(f), @"^([\w\.\- ]+\.(?:png|mcmeta|json)|license\.txt)$", RegexOptions.IgnoreCase)))
 	await zipArchive.CreateEntryFromFileAsync(file,
 		Path.GetRelativePath(Environment.CurrentDirectory, file).Replace('\\', '/'), CompressionLevel.SmallestSize);
 
